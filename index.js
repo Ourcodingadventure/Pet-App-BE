@@ -39,12 +39,15 @@ app.use(
   cors({
     origin: ["http://localhost:3000"],
     credentials: true,
+    cookie: {
+      sameSite: "none",
+    },
   })
 );
+app.use(cookieParser());
 
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cookieParser());
 //anyone can use these
 app.use("/auth", authRoutes);
 app.get("/pets", getPets);

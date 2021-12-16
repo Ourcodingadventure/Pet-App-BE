@@ -15,7 +15,7 @@ const signIn = (req, res) => {
       role: user.role,
       phoneNumber: user.phoneNumber,
     },
-    1234
+    SERVER_SECRET
   );
   res.cookie("jToken", token, {
     maxAge: 86_400_000,

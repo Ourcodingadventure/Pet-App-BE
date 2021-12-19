@@ -19,7 +19,7 @@ const signIn = (req, res) => {
   );
   res.cookie("jToken", token, {
     maxAge: 86_400_000,
-    httpOnly: true,
+    // httpOnly: true,
     sameSite: "none",
     secure: false,
   });

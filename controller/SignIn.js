@@ -20,6 +20,7 @@ const signIn = (req, res) => {
   res.cookie("jToken", token, {
     maxAge: 86_400_000,
     // httpOnly: true,
+    domain: "http://localhost:3000",
     sameSite: "none",
     secure: false,
   });

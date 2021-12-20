@@ -32,6 +32,7 @@ const sessionAuth = (req, res, next) => {
       res.cookie("jToken", token, {
         maxAge: 86_400_000,
         // httpOnly: true,
+        domain: "http://localhost:3000",
         sameSite: "none",
         secure: false,
       });

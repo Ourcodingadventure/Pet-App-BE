@@ -3,7 +3,7 @@ const validatePetProperties = (req, res, next) => {
     type,
     petName,
     adoptionStatus,
-    picture,
+    picture = req.files[0].filename,
     height,
     weight,
     color,

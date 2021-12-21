@@ -36,7 +36,10 @@ app.use("/", express.static(path.resolve(path.join(__dirname, "/build"))));
 //middlewares
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: [
+      "http://localhost:3000",
+      "https://jordans-pet-agency.herokuapp.com",
+    ],
     credentials: true,
   })
 );
@@ -61,7 +64,7 @@ app.post(
   "/add-pet",
   authenticateAdmin,
   upload.any(),
-  // validatePetProperties,
+  validatePetProperties,
   createPet
 );
 app.put("/edit-pet/:id", authenticateAdmin, upload.any(), editPet);

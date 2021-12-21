@@ -27,26 +27,23 @@ const storage = multer.diskStorage({
     );
   },
 });
-var upload = multer({ storage: storage });
-
-// module.exports = upload;
+let upload = multer({ storage: storage });
 
 const app = express();
 app.use("/", express.static(path.resolve(path.join(__dirname, "./uploads"))));
+app.use("/", express.static(path.resolve(path.join(__dirname, "/build"))));
 
 //middlewares
 app.use(
   cors({
     origin: ["http://localhost:3000"],
     credentials: true,
-    // exposedHeaders: ["set-cookie"],
   })
 );
-app.set("trust proxy", 1);
-app.use(cookieParser());
 
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cookieParser());
 //anyone can use these
 app.use("/auth", authRoutes);
 app.get("/pets", getPets);
@@ -76,3 +73,6 @@ app.listen(PORT, () => {
 
 //depricated
 // app.get("/user/:id/full", getUserAndCart);
+
+//Todo notes from code review
+// imagekit-- for files cdn

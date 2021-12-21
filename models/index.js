@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const { databaseURL } = require("../config/index");
 const UserModel = require("./UserModel");
 const PetModel = require("./PetModel");
-const CartModel = require("./CartModel");
 
 mongoose.connect(databaseURL, {
   useNewUrlParser: true,
@@ -32,5 +31,4 @@ process.on("SIGINT", () => {
 module.exports = {
   UserModel,
   PetModel,
-  CartModel,
 };

@@ -1,6 +1,7 @@
 const { PetModel } = require(`../models`);
 
 const getPets = (req, res) => {
+  let pageNumber = req.query.pageNumber;
   console.log("query:", req.query);
   PetModel.find(req.query, function (err, pet) {
     if (!err && pet) {
@@ -14,6 +15,8 @@ const getPets = (req, res) => {
         message: "server error",
       });
     }
-  });
+  })
+    .skip(pageNumber * 10)
+    .limit(10);
 };
 module.exports = getPets;

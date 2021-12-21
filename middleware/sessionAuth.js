@@ -2,11 +2,16 @@ const jwt = require("jsonwebtoken");
 const { SERVER_SECRET } = require("../config");
 const sessionAuth = (req, res, next) => {
   //check cookies for jtoken
-  if (!req.cookies.jToken) {
+  let session = req.cookies.jToken;
+  if (req.headers.jtoken) {
+    session = req.headers.jtoken;
+  }
+  if (!session) {
     res.status(401).send("include http-only credentials with every request");
     return;
   } //make sure its a token for my user
-  jwt.verify(req.cookies.jToken, SERVER_SECRET, function (err, decodedData) {
+
+  jwt.verify(session, SERVER_SECRET, function (err, decodedData) {
     if (!err && decodedData) {
       const issueDate = decodedData.iat * 1000; // 1000 miliseconds because in js ms is in 16 digits
       const nowDate = new Date().getTime();
@@ -31,13 +36,11 @@ const sessionAuth = (req, res, next) => {
       );
       res.cookie("jToken", token, {
         maxAge: 86_400_000,
-        // httpOnly: true,
-        domain: "http://localhost:3000",
-        sameSite: "none",
-        secure: false,
+        sameSite: "None",
+        secure: true,
       });
-      req.body.jToken = decodedData;
       req.headers.jToken = decodedData;
+      req.body.jToken = decodedData;
       next();
       // }
     } else {
